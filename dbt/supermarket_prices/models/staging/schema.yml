@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: stg_product_prices
+    columns:
+      - name: product_code
+        tests:
+          - not_null

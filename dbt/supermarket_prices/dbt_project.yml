@@ -1,0 +1,19 @@
+name: 'supermarket_prices'
+version: '1.0.0'
+
+profile: 'supermarket_prices'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  supermarket_prices:
+      materialized: table
