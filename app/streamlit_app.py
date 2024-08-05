@@ -2,7 +2,7 @@ import streamlit as st
 import altair as alt
 import duckdb
 
-con = duckdb.connect(database='dbt.duckdb', read_only=True)
+con = duckdb.connect(database='app/dbt.duckdb', read_only=True)
 
 st.set_page_config('Best Grocery Offers in HK', "🛒" ,initial_sidebar_state='collapsed', layout="wide")
 
