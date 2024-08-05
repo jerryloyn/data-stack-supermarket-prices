@@ -7,7 +7,7 @@ down:
 restart: down up
 
 run-duckdb:
-	docker exec -it scheduler /opt/duckdb /duckdb/dbt.duckdb -readonly
+	docker exec -it scheduler /opt/duckdb /app/dbt.duckdb -readonly
 
 dbt-doc:
 	docker exec -it scheduler bash -c "cd /usr/app/dbt && dbt docs generate && dbt docs serve"

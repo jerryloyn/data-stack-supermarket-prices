@@ -18,7 +18,7 @@ x-airflow-common:
     - ./airflow/tests:/opt/airflow/tests
     - ./airflow/temp:/opt/airflow/temp
     - ./dbt/supermarket_prices:/usr/app/dbt
-    - ./duckdb:/duckdb
+    - ./app:/app
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   env_file:
     - .env
@@ -54,7 +54,6 @@ services:
     container_name: streamlit
     build: ./app
     volumes:
-        - ./duckdb:/duckdb
         - ./app:/app
     ports:
         - 8501:8501
