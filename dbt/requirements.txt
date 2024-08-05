@@ -1,0 +1,4 @@
+dbt-duckdb==1.7.0
+duckdb==1.0.0
+fsspec==2024.6.1
+s3fs==2024.6.1
