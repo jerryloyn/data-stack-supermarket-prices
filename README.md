@@ -2,6 +2,8 @@
 ## Overview
 This project aims to collect product prices of Hong Kong supermarkets via an API, store the raw data in `MinIO`, perform data modeling using `dbt`, transform the data with `DuckDB`, and visualize the results using `Streamlit`. The entire workflow is orchestrated by `Airflow`.
 
+The dashboard is also published on streamlit [here](https://hk-supermarket-prices.streamlit.app/)
+
 ## Tech Stack
 1. API Data Collection:
     - Use an API to fetch daily product prices of supermarkets. (see details [here](https://data.gov.hk/en-data/dataset/cc-pricewatch-pricewatch))
