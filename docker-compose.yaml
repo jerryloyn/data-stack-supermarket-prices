@@ -18,7 +18,7 @@ x-airflow-common:
     - ./airflow/tests:/opt/airflow/tests
     - ./airflow/temp:/opt/airflow/temp
     - ./dbt/supermarket_prices:/usr/app/dbt
-    - ./app:/app
+    - ./data:/data
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   env_file:
     - .env
@@ -55,6 +55,7 @@ services:
     build: ./app
     volumes:
         - ./app:/app
+        - ./data:/data
     ports:
         - 8501:8501
     command: streamlit run /app/streamlit_app.py --server.port 8501
