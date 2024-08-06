@@ -134,6 +134,9 @@ main_table_head = main_table_head.style.format(
 
 main_table_count = con.execute(query.replace("select * from result","select count(*) from result"), [cat_1, cat_2, cat_3, brand, product]).fetchone()[0]
 
+
+last_update_date = con.execute("select max(update_date) from obt_offers_prices;").fetchone()[0]
+st.write('Last Update Date ', last_update_date,) 
 st.write('Total number of rows: ', main_table_count) 
 st.write('First 100 rows: ', main_table_head)
 
