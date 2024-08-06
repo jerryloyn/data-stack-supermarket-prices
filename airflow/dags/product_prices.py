@@ -92,9 +92,13 @@ def price_etl():
 
     dbt_build = BashOperator(
     task_id="dbt_build",
-    bash_command='cd /usr/app/dbt && dbt build',
+    bash_command='cd /usr/app/dbt && dbt deps && dbt build --profiles-dir /usr/app/dbt',
+)
+    rm_duckdb = BashOperator(
+    task_id="rm_duckdb",
+    bash_command='rm /data/dbt.duckdb',
 )
 
-    dump_data_to_bucket(get_price_data(get_api_urls())) >> dbt_build
+    dump_data_to_bucket(get_price_data(get_api_urls())) >> rm_duckdb >> dbt_build
 
 price_etl()
