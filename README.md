@@ -22,10 +22,14 @@ The dashboard is also published on streamlit [here](https://hk-supermarket-price
     - Clone this repository.
     - Make sure you have Docker installed.
     - Navigate to the project directory.
+    - Copy `.env.example` and rename the file as `.env`
     - Run `make up` to spin up the containers:
-1. Check the DAG run
-    -  [Airflow UI](http:localhost:8000) with username and password are both airflow.
+1. Check the DAG run (Optional)
+    -  [Airflow UI](http:localhost:8000) with username and password are both `airflow`.
     ![alt airflow-ui](https://github.com/jerryloyn/data-stack-supermarket-prices/blob/master/assets/airflow_screenshot.png?raw=true)
+1. Check the Minio Bucket (Optional)
+    -  [MinIO UI](http:localhost:9000) with username and password are both `minio123`.
+    ![alt minio-ui](https://github.com/jerryloyn/data-stack-supermarket-prices/blob/master/assets/minio_screenshot.png?raw=true)
 1. Run `make run-duckdb` to open DuckDB cli for db query (Optional)
 1. Run `make dbt-doc` to generate dbt docs (Optional)
     - [dbt UI](http:localhost:8080)
