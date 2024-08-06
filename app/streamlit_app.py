@@ -1,8 +1,10 @@
 import streamlit as st
 import altair as alt
 import duckdb
+import os
 
-con = duckdb.connect(database='app/dbt.duckdb', read_only=True)
+
+con = duckdb.connect(database=os.path.join(os.path.dirname(__file__),'/../data/dbt.duckdb'), read_only=True)
 
 st.set_page_config('Best Grocery Offers in HK', "🛒" ,initial_sidebar_state='collapsed', layout="wide")
 
@@ -138,7 +140,8 @@ main_table_count = con.execute(query.replace("select * from result","select coun
 last_update_date = con.execute("select max(update_date) from obt_offers_prices;").fetchone()[0]
 st.write('Last Update Date ', last_update_date,) 
 st.write('Total number of rows: ', main_table_count) 
-st.write('First 100 rows: ', main_table_head)
+st.write('First 100 rows: ')
+st.dataframe(main_table_head, use_container_width=True,)
 
 st.subheader('% Products with Offers vs Avg Discount Off')
 
