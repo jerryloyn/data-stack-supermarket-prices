@@ -96,7 +96,7 @@ def price_etl():
 )
     rm_duckdb = BashOperator(
     task_id="rm_duckdb",
-    bash_command='rm /data/dbt.duckdb',
+    bash_command='rm -f /app/data/dbt.duckdb',
 )
 
     dump_data_to_bucket(get_price_data(get_api_urls())) >> rm_duckdb >> dbt_build

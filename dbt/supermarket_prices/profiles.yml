@@ -2,7 +2,7 @@ supermarket_prices:
   outputs:
     dev:
       type: duckdb
-      path: /data/dbt.duckdb
+      path: /app/data/dbt.duckdb
       filesystems:
         - fs: s3
           anon: false
