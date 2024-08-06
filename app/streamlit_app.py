@@ -3,7 +3,7 @@ import altair as alt
 import duckdb
 import os
 
-con = duckdb.connect(database='/data/dbt.duckdb')
+con = duckdb.connect(database='data/dbt.duckdb')
 
 st.set_page_config('Best Grocery Offers in HK', "🛒" ,initial_sidebar_state='collapsed', layout="wide")
 
