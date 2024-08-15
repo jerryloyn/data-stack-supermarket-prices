@@ -4,6 +4,9 @@ This project aims to collect product prices of Hong Kong supermarkets via an API
 
 The dashboard is also published on streamlit [here](https://hk-supermarket-prices.streamlit.app/)
 
+## Workflow
+![alt workflow](https://github.com/jerryloyn/data-stack-supermarket-prices/blob/master/assets/supermarket_prices_drawio.png?raw=true)
+
 ## Tech Stack
 1. API Data Collection:
     - Use an API to fetch daily product prices of supermarkets. (see details [here](https://data.gov.hk/en-data/dataset/cc-pricewatch-pricewatch))
