@@ -2,6 +2,7 @@ import streamlit as st
 import altair as alt
 import duckdb
 import requests
+import os
 
 S3_URL ='https://hk-supermarket-price-duckdb.s3.amazonaws.com/dbt.duckdb'
 
@@ -20,10 +21,12 @@ def download_from_s3(s3_url, local_file_path="/tmp/dbt.duckdb"):
 
     return local_file_path
 
-local_file_path = download_from_s3(S3_URL)
+# check if connect s3 or local 
+if os.getenv("WRITE_TO_AWS")=="TRUE":
+    local_file_path = download_from_s3(S3_URL)
+else:
+     local_file_path = "app/data/dbt.duckdb"
 
-### CHANGE THIS PART IF YOU WANT TO CONNECT THE DB LOCALLY!!!
-# con = duckdb.connect(database='app/data/dbt.duckdb', read_only=True) 
 con = duckdb.connect(database=local_file_path, read_only=True)
 
 st.title('🛒 Best Grocery Offers in HK')
