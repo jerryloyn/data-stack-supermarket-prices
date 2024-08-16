@@ -3,6 +3,7 @@ logs/
 minio_data/
 tmp/
 .DS_store
+app/data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
