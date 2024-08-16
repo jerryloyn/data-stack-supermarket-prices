@@ -1,11 +1,30 @@
 import streamlit as st
 import altair as alt
 import duckdb
-import os
+import requests
 
-con = duckdb.connect(database='app/data/dbt.duckdb', read_only=True)
+S3_URL ='https://hk-supermarket-price-duckdb.s3.amazonaws.com/dbt.duckdb'
 
 st.set_page_config('Best Grocery Offers in HK', "🛒" ,initial_sidebar_state='collapsed', layout="wide")
+
+@st.cache_data
+def download_from_s3(s3_url, local_file_path="/tmp/dbt.duckdb"):
+    response = requests.get(s3_url)
+    print(response.status_code)
+    if response.status_code == 200:
+        with open(local_file_path, "wb") as f:
+            f.write(response.content)
+        print(f"File downloaded successfully to {local_file_path}")
+    else:
+        print(f"Failed to download file. Status code: {response.status_code}")
+
+    return local_file_path
+
+local_file_path = download_from_s3(S3_URL)
+
+### CHANGE THIS PART IF YOU WANT TO CONNECT THE DB LOCALLY!!!
+# con = duckdb.connect(database='app/data/dbt.duckdb', read_only=True) 
+con = duckdb.connect(database=local_file_path, read_only=True)
 
 st.title('🛒 Best Grocery Offers in HK')
 

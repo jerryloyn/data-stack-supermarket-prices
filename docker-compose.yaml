@@ -1,6 +1,8 @@
 x-airflow-common:
   &airflow-common
   build: ./airflow
+  env_file:
+    - .env
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
@@ -10,6 +12,7 @@ x-airflow-common:
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
     AIRFLOW_CONN_POSTGRES_DEFAULT: postgres://airflow:airflow@postgres:5432/airflow
+    AIRFLOW_CONN_AWS_DEFAULT: aws://${AWS_ACCESS_KEY_ID}:${AWS_SECRET_ACCESS_KEY}@
   volumes:
     - ./airflow/dags:/opt/airflow/dags
     - ./airflow/data:/opt/airflow/data
@@ -20,8 +23,6 @@ x-airflow-common:
     - ./dbt/supermarket_prices:/usr/app/dbt
     - ./app/data:/app/data
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
-  env_file:
-    - .env
   depends_on:
     postgres:
       condition: service_healthy

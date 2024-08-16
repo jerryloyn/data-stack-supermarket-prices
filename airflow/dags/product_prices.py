@@ -9,6 +9,7 @@ from io import BytesIO
 from datetime import datetime, timedelta
 from airflow.decorators import dag, task
 from airflow.operators.bash import BashOperator
+from airflow.providers.amazon.aws.transfers.local_to_s3 import LocalFilesystemToS3Operator
 
 default_args = {
    "project_dir": "/usr/app/dbt",
@@ -100,5 +101,18 @@ def price_etl():
 )
 
     dump_data_to_bucket(get_price_data(get_api_urls())) >> rm_duckdb >> dbt_build
+
+
+    if os.getenv("WRITE_TO_AWS")=="TRUE":
+
+        create_local_to_s3_job = LocalFilesystemToS3Operator(
+        task_id="create_local_to_s3_job",
+        filename="/app/data/dbt.duckdb",
+        dest_key="dbt.duckdb",
+        dest_bucket=os.getenv("S3_BUCKET"),
+        replace=True,
+    )
+
+        dbt_build  >> create_local_to_s3_job
 
 price_etl()

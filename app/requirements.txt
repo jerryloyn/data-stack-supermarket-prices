@@ -2,3 +2,4 @@ duckdb==1.0.0
 altair
 pandas
 streamlit
+apache-airflow[amazon]
