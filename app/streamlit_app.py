@@ -4,11 +4,11 @@ import duckdb
 import requests
 import os
 
-S3_URL ='https://hk-supermarket-price-duckdb.s3.amazonaws.com/dbt.duckdb'
+S3_URL =f'https://{os.getenv("S3_BUCKET")}.s3.amazonaws.com/dbt.duckdb'
 
 st.set_page_config('Best Grocery Offers in HK', "🛒" ,initial_sidebar_state='collapsed', layout="wide")
 
-@st.cache_data
+@st.cache_data(ttl="2h")
 def download_from_s3(s3_url, local_file_path="/tmp/dbt.duckdb"):
     response = requests.get(s3_url)
     print(response.status_code)
