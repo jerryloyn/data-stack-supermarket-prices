@@ -52,6 +52,8 @@ services:
 
   streamlit:
     container_name: streamlit
+    env_file:
+      - .env
     build: ./app
     volumes:
         - ./app:/app
