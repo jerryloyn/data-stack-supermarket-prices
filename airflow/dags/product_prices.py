@@ -83,7 +83,7 @@ def dump_data_to_bucket(daily_data: dict):
         )
 
 @dag(
-    schedule="0 3 * * *",
+    schedule=None,
     start_date=datetime(2022, 12, 26),
     catchup=False,
     tags=["prices", "etl"],
