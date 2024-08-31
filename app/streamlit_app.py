@@ -4,30 +4,21 @@ import duckdb
 import requests
 import os
 
-S3_URL =f'https://{os.getenv("S3_BUCKET")}.s3.amazonaws.com/dbt.duckdb'
+s3_bucket = os.getenv("S3_BUCKET")
 
 st.set_page_config('Best Grocery Offers in HK', "🛒" ,initial_sidebar_state='collapsed', layout="wide")
 
-@st.cache_data(ttl="2h")
-def download_from_s3(s3_url, local_file_path="/tmp/dbt.duckdb"):
-    response = requests.get(s3_url)
-    print(response.status_code)
-    if response.status_code == 200:
-        with open(local_file_path, "wb") as f:
-            f.write(response.content)
-        print(f"File downloaded successfully to {local_file_path}")
-    else:
-        print(f"Failed to download file. Status code: {response.status_code}")
-
-    return local_file_path
-
 # check if connect s3 or local 
 if os.getenv("WRITE_TO_AWS")=="TRUE":
-    local_file_path = download_from_s3(S3_URL)
-else:
-     local_file_path = "app/data/dbt.duckdb"
+    con = duckdb.connect()
+    con.sql("INSTALL httpfs;")
+    con.sql("LOAD httpfs;")
+    con.sql(f"ATTACH 's3://{s3_bucket}/dbt.duckdb' (READ_ONLY);")
+    con.sql("USE dbt;")
 
-con = duckdb.connect(database=local_file_path, read_only=True)
+else:
+    local_file_path = "app/data/dbt.duckdb"
+    con = duckdb.connect(database=local_file_path, read_only=True)
 
 st.title('🛒 Best Grocery Offers in HK')
 
