@@ -27,7 +27,7 @@ st.subheader('Best Deals')
 cols_a = st.columns(6)
 
 with cols_a[0]:
-    deal_or_all = st.selectbox('All Goods or New Deals', ["All Goods", "New Deals"])
+    deal_or_all = st.selectbox('All Goods or New Deals', ["New Deals", "All Goods"])
 
 with cols_a[1]: 
     cat_1_df = con.execute("""
